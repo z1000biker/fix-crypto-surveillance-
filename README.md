@@ -239,7 +239,7 @@ In the **Crypto Market Surveillance System**, the **FIX protocol** is used to **
 - **Order Messages**: Contains details about orders placed on an exchange, including order types, quantities, and prices.
 
 By leveraging FIX for **trade ingestion**, the system ensures that it can process and monitor real-world market activity efficiently and effectively.
-
+---
 ## Summary of Technologies
 
 | Technology                      | Role                                      | Why It's Used                                                          |
@@ -299,8 +299,8 @@ To install the necessary dependencies, run:
 
 ```bash
 pip install -r requirements.txt
-
-Contributing
+---
+## Contributing
 
 We welcome contributions from the community! If you find bugs or would like to propose new features, please follow these steps:
 
@@ -314,11 +314,11 @@ Push to the branch (git push origin feature/your-feature)
 
 Create a new pull request
 
-License
+## License
 
 This project is licensed under the MIT License - see the LICENSE
  file for details.
-
+---
 Acknowledgments
 
 Shields.io
