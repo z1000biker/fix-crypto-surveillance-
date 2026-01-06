@@ -1,0 +1,89 @@
+CRYPTO MARKET SURVEILLANCE LAB - OPERATING MANUAL
+=============================================
+
+1. INTRODUCTION
+---------------
+The Crypto Market Surveillance Lab is an educational and professional-grade platform 
+designed to monitor trading activity, detect market manipulation, and manage 
+investigation cases. It combines Rule-Based logic with Machine Learning (Isolation Forest) 
+to identify Spoofing, Wash Trading, and other anomalies.
+
+2. SYSTEM ARCHITECTURE
+----------------------
+- Surveillance Engine: The backend gRPC server that processes trades and runs detection rules.
+- Surveillance UI: Tool for real-time monitoring, case investigation, and scenario simulation.
+- gRPC Backbone: Handling low-latency communication between components.
+
+3. PREREQUISITES
+----------------
+- Python 3.9 or higher
+- Git
+- Virtual Environment (recommended)
+
+Installation:
+1. Clone the repo.
+2. Navigate to surveillance-engine/ and run: pip install -r requirements.txt
+3. Navigate to surveillance-ui/ and run: pip install -r requirements.txt
+
+4. STARTING THE SYSTEM
+----------------------
+The Engine MUST be started before the UI.
+
+Step 1: Start the Surveillance Engine
+   cd surveillance-engine
+   python main.py
+   (Wait for message: "Surveillance Engine running on port 50051...")
+
+Step 2: Start the Surveillance UI
+   cd surveillance-ui
+   python main.py
+   (A window named "Crypto Market Surveillance Lab" will appear.)
+
+5. OPERATING THE LAB
+--------------------
+
+A. Trade Stream Tab
+   - Shows all incoming raw trades as they happen.
+   - Used for baseline observation of market flow.
+
+B. Detection Signals Tab
+   - Displays real-time "red flags" (Alerts).
+   - Shows the Rule Type (SPOOFING, WASH_TRADING, ANOMALY) and the Participant ID.
+
+C. Cases Tab
+   - When multiple signals correlate, a Case is opened.
+   - Select a case and click "INVESTIGATE" to see the full analysis.
+
+D. Case Details Tab
+   - Detailed evidence summary.
+   - Shows Violation Type, Description, and compliance recommendations.
+
+E. Simulation Control Tab
+   - This is where you trigger experiments.
+   
+   SCENARIOS:
+   1. Inject Normal Trading: Simulated baseline activity (no alerts).
+   2. Inject Spoofing Scenario: Eve places large orders then cancels them to trick the engine.
+   3. Inject Wash Trading: Participants trade with themselves to inflate volume.
+   
+   RESET SCENARIO:
+   - Click "Reset Scenario" to clear the trade buffer and start a fresh experiment.
+
+F. Narrative Mode (Educational)
+   - Read the message panel at the bottom of the Simulation tab.
+   - It explains exactly what is happening in the market "story" as it unfolds.
+
+6. CONFIGURATION
+----------------
+- config.toml (Root): Main system settings for ML scores, thresholds, and logging.
+- surveillance-engine/rules/*.yaml: Customize the math behind the detection rules.
+
+7. TROUBLESHOOTING
+------------------
+- "Failed to bind to port 50051": An old engine process is still running. Kill the python process or restart your computer.
+- "AttributeError: alerts": Proto files were not regenerated. Run the protoc commands listed in ARCHITECTURE.md.
+- UI doesn't connect: Ensure the Engine is running and firewall allows localhost:50051.
+
+=============================================
+Built with AI Collaboration - 2026
+=============================================
