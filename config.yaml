@@ -1,0 +1,49 @@
+# Logging Configuration
+logging:
+  level: "INFO"
+  file: "surveillance.log"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+
+# Trade Ingestion Settings
+trade_ingestion:
+  max_batch_size: 1000
+  max_queue_size: 5000
+  buffer_size: 1000
+  min_buffer_threshold: 1
+
+# gRPC Server Settings
+grpc:
+  host: "0.0.0.0"
+  port: 50051
+  max_workers: 10
+
+# Machine Learning Model Configuration
+ml_model:
+  model_name: "IsolationForest"
+  model_version: "v1"
+  contamination: 0.1
+  n_estimators: 100
+
+# Rule Engine Configuration
+rules:
+  directory: "rules"
+  enabled:
+    - spoofing
+    - wash_trading
+
+# Detection Thresholds
+thresholds:
+  spoofing:
+    cancel_ratio: 0.7
+    quantity_percentile: 95
+  wash_trading:
+    self_trade_ratio: 0.1
+    wash_volume_ratio: 0.05
+  anomaly:
+    ml_score_threshold: 0.8
+
+# Case Management
+cases:
+  auto_prioritize: true
+  high_priority_threshold: 0.9
+  retention_days: 90
