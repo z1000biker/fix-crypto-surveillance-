@@ -1,0 +1,85 @@
+# Surveillance System Configuration File (TOML)
+
+[logging]
+level = "INFO"  # Possible values: DEBUG, INFO, WARNING, ERROR, CRITICAL
+file = "surveillance.log"  # Path to log file
+format = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+max_file_size_mb = 100  # Maximum log file size before rotation
+backup_count = 5  # Number of backup log files to keep
+
+[trade_ingestion]
+max_batch_size = 1000
+max_queue_size = 5000
+trade_timeout_seconds = 10  # Time to wait before marking a trade as timed out
+buffer_size = 1000  # Rolling trade buffer size for stateful analysis
+min_buffer_threshold = 1  # Minimum trades before processing
+
+[grpc]
+host = "0.0.0.0"
+port = 50051
+max_workers = 10
+max_concurrent_rpcs = 100
+
+[ml_model]
+model_name = "IsolationForest"  # The ML model to use for anomaly detection
+model_version = "v1"  # Version of the model
+num_estimators = 100  # Number of trees in the IsolationForest model (renamed from n_estimators)
+max_samples = 0.25  # Fraction of the dataset to sample for building each tree
+contamination = 0.1  # Expected proportion of outliers in the dataset
+random_state = 42  # Random seed for reproducibility
+
+[rules]
+directory = "rules"
+enabled_rules = ["spoofing", "wash_trading"]
+auto_reload = false  # Automatically reload rules when files change
+
+[thresholds.spoofing]
+cancel_ratio = 0.7  # Minimum cancel ratio to trigger alert
+quantity_percentile = 95  # Minimum quantity percentile to flag as large order
+priority = "HIGH"
+
+[thresholds.wash_trading]
+self_trade_ratio = 0.1  # Minimum self-trade ratio
+wash_volume_ratio = 0.05  # Minimum wash volume ratio
+priority = "MEDIUM"
+
+[thresholds.anomaly]
+ml_score_threshold = 0.8  # Minimum ML anomaly score to create case
+auto_escalate = true  # Automatically escalate high-scoring anomalies
+
+[cases]
+auto_prioritize = true
+high_priority_threshold = 0.9
+retention_days = 90  # How long to keep closed cases
+audit_trail_enabled = true
+
+[fix_protocol]
+enabled = false  # Enable/disable FIX protocol ingestion
+host = "fix-exchange.com"
+port = 5000
+protocol_version = "4.2"
+sender_comp_id = "SURVEILLANCE_ENGINE"
+target_comp_id = "EXCHANGE"
+heartbeat_interval = 30  # Seconds between heartbeat messages
+
+[simulation]
+default_scenario = "normal_trading"  # Default simulation scenario: normal_trading, spoofing, wash_trading
+auto_inject_delay_ms = 500  # Delay between injected trades in milliseconds
+enable_narrative = true  # Show educational narrative messages
+
+[database]
+enabled = false  # Enable database persistence (future feature)
+type = "sqlite"  # Database type: sqlite, postgresql, mysql
+path = "surveillance.db"  # Path for SQLite database
+connection_pool_size = 10
+
+[performance]
+enable_profiling = false  # Enable performance profiling
+metrics_port = 9090  # Port for Prometheus metrics (if enabled)
+async_workers = 4  # Number of async worker threads
+
+[ui]
+theme = "default"  # UI theme: default, dark, light
+window_width = 1200
+window_height = 800
+refresh_rate_ms = 100  # UI refresh rate in milliseconds
