@@ -1,0 +1,7 @@
+id: spoofing_large_orders
+alert_type: SPOOFING
+severity: HIGH
+description: "High ratio of large cancelled orders coupled with price movement."
+when:
+  cancel_ratio: "> 0.7"
+  quantity_percentile: "> 95"

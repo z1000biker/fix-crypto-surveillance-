@@ -1,0 +1,8 @@
+grpcio
+grpcio-tools
+pandas
+reportlab
+scikit-learn
+pyarrow
+duckdb
+aiofiles

@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package surveillance;
+
+message CaseEvent {
+  string timestamp = 1; // ISO 8601
+  string actor = 2;
+  string action = 3;
+  string details = 4; // JSON string
+}
+
+message SurveillanceCase {
+  string case_id = 1;
+  string participant_id = 2;
+  string instrument = 3;
+  string status = 4; // OPEN, INVESTIGATE, CLOSED
+  string priority = 5;
+  double ml_score = 6;
+  repeated CaseEvent events = 7;
+  repeated string alerts = 8;
+}
+
+import "trades.proto";
+
+service CaseStream {
+  rpc StreamCases (Empty) returns (stream SurveillanceCase);
+}

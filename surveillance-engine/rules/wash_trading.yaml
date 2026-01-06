@@ -1,0 +1,7 @@
+id: wash_trading_basic
+alert_type: WASH_TRADING
+severity: HIGH
+description: "Simultaneous buy/sell orders from same effective participant."
+when:
+  self_trade_ratio: "> 0.1"
+  wash_volume_ratio: "> 0.05"
