@@ -85,5 +85,5 @@ F. Narrative Mode (Educational)
 - UI doesn't connect: Ensure the Engine is running and firewall allows localhost:50051.
 
 =============================================
-Built with AI Collaboration - 2026
+Operating Manual End
 =============================================
